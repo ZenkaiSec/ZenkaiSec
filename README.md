@@ -1,0 +1,4 @@
+- 👋 Hi, I’m @ZenkaiSec. Thanks for stopping by!
+- 👀 I’m interested in developing ethical hacking tools, posting writeups, and creating reviews of certification exams.
+- 🌱 I’m currently learning incident response, network and web penetration testing, & EDR evasion.
+- 📫 I can be reached at zenkaisec@protonmail.com
