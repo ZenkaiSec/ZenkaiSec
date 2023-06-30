@@ -1,0 +1,528 @@
+-D
+-b 8192
+-f 1
+-i
+-w /var/log/audit/ -p wxa
+-w /etc/audit/ -p wa
+-w /etc/libaudit.conf -p wa
+-w /etc/audisp/ -p wa
+-w /sbin/auditctl -p x
+-w /sbin/auditd -p x
+
+# Ignore all the anonymous events
+-a exit,never -F auid=4294967295
+-a exit,never -F auid=-1
+-a exit,never -F auid=unset
+
+# Ignore system services
+#-a exit,never -F auid<1000
+
+-a exit,never -S all -F subj_type=postfix_master_t
+-a exit,never -S all -F subj_type=chronyd_master_t
+-a exit,never -S all -F subj_type=syslogd_var_run_t
+-a exit,never -S all -F subj_type=postfix_postdrop_exec_t
+-a exit,never -S all -F subj_type=postfix_postdrop_t
+-a exit,never -S all -F subj_type=system_mail_t
+-a exit,never -S all -F subj_type=crond_t
+-a exit,never -S all -F subj_type=initrc_t
+-a exit,never -S all -F subj_type=system_cronjob_t
+-a exit,never -S all -F subj_type=chkpwd_t
+-a exit,never -S all -F subj_type=rpm_t
+-a exit,never -S all -F subj_type=logrotate_t
+-a exit,never -S all -F subj_type=iptables_t
+-a exit,never -S all -F subj_type=vmtools_t
+-a exit,never -S all -F subj_type=sysstat_t
+-a exit,never -S all -F subj_type=logwatch_t
+-a exit,never -S all -F subj_type=accountsd_t
+-a exit,never -S all -F subj_type=mdadm_t
+-a exit,never -S all -F subj_type=lvm_t
+-a exit,never -S all -F subj_type=spc_t
+-a exit,never -S all -F subj_type=udev_t
+-a exit,never -S all -F subj_type=iptables_exec_t
+
+-a exit,never -F arch=b32 -S getxattr
+-a exit,never -F arch=b32 -S lgetxattr
+-a exit,never -F arch=b32 -S listxattr
+-a exit,never -F arch=b32 -S lsetxattr
+-a exit,never -F arch=b32 -S openat
+-a exit,never -F arch=b64 -S getxattr
+-a exit,never -F arch=b64 -S lgetxattr
+-a exit,never -F arch=b64 -S listxattr
+-a exit,never -F arch=b64 -S lsetxattr
+-a exit,never -F arch=b64 -S openat
+-a exit,never -F arch=b64 -S read -F exe=/opt/puppetlabs/puppet/bin/ruby
+-a exit,never -F arch=b32 -S all -F exe=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b32 -S all -F exe=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b32 -S all -F path=/lib64/ld-linux-x86-64.so.2
+-a exit,never -F arch=b32 -S all -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/listguests64
+-a exit,never -F arch=b32 -S all -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b32 -S all -F path=/opt/SolarWinds/Agent/bin/Plugins/Discovery/SolarWinds.Agent.Discovery.Plugin
+-a exit,never -F arch=b32 -S all -F path=/opt/SolarWinds/Agent/bin/Plugins/JobEngine/SolarWinds.Agent.JobEngine.Plugin
+-a exit,never -F arch=b32 -S all -F path=/opt/SolarWinds/Agent/bin/swiagent
+-a exit,never -F arch=b32 -S all -F path=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b32 -S all -F path=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b32 -S all -F path=/opt/WCG/bin/content_cop
+-a exit,never -F arch=b32 -S all -F path=/opt/WCG/bin/content_line
+-a exit,never -F arch=b32 -S all -F path=/opt/WCG/bin/FeedbackAgent
+-a exit,never -F arch=b32 -S all -F path=/opt/WCG/bin/WTGApp
+-a exit,never -F arch=b32 -S all -F path=/opt/WCG/ui/mrtg/rateup
+-a exit,never -F arch=b32 -S all -F path=/opt/websense/PolicyEngine/FPRUtils
+-a exit,never -F arch=b32 -S all -F path=/opt/websense/PolicyEngine/FqdnTool
+-a exit,never -F arch=b32 -S all -F path=/opt/websense/PolicyEngine/mgmtdClient
+-a exit,never -F arch=b32 -S all -F path=/opt/websense/PolicyEngine/PolicyEngineClient
+-a exit,never -F arch=b32 -S all -F path=/opt/websense/Python2.5/bin/python2.5
+-a exit,never -F arch=b32 -S all -F path=/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent
+-a exit,never -F arch=b32 -S all -F path=/usr/sbin/sendmail.postfix
+-a exit,never -F arch=b32 -S execve -F exe=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b32 -S execve -F exe=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b32 -S execve -F path=/lib64/ld-linux-x86-64.so.2
+-a exit,never -F arch=b32 -S execve -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/listguests64
+-a exit,never -F arch=b32 -S execve -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b32 -S execve -F path=/opt/SolarWinds/Agent/bin/Plugins/Discovery/SolarWinds.Agent.Discovery.Plugin
+-a exit,never -F arch=b32 -S execve -F path=/opt/SolarWinds/Agent/bin/Plugins/JobEngine/SolarWinds.Agent.JobEngine.Plugin
+-a exit,never -F arch=b32 -S execve -F path=/opt/SolarWinds/Agent/bin/swiagent
+-a exit,never -F arch=b32 -S execve -F path=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b32 -S execve -F path=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b32 -S execve -F path=/opt/WCG/bin/content_cop
+-a exit,never -F arch=b32 -S execve -F path=/opt/WCG/bin/content_line
+-a exit,never -F arch=b32 -S execve -F path=/opt/WCG/bin/FeedbackAgent
+-a exit,never -F arch=b32 -S execve -F path=/opt/WCG/bin/WTGApp
+-a exit,never -F arch=b32 -S execve -F path=/opt/WCG/ui/mrtg/rateup
+-a exit,never -F arch=b32 -S execve -F path=/opt/websense/PolicyEngine/FPRUtils
+-a exit,never -F arch=b32 -S execve -F path=/opt/websense/PolicyEngine/FqdnTool
+-a exit,never -F arch=b32 -S execve -F path=/opt/websense/PolicyEngine/mgmtdClient
+-a exit,never -F arch=b32 -S execve -F path=/opt/websense/PolicyEngine/PolicyEngineClient
+-a exit,never -F arch=b32 -S execve -F path=/opt/websense/Python2.5/bin/python2.5
+-a exit,never -F arch=b32 -S execve -F path=/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent
+-a exit,never -F arch=b32 -S execve -F path=/usr/sbin/sendmail.postfix
+-a exit,never -F arch=b32 -S keyctl -F exe=/usr/bin/login
+-a exit,never -F arch=b32 -S keyctl -F exe=/usr/bin/sudo
+-a exit,never -F arch=b32 -S keyctl -F exe=/usr/sbin/sshd
+
+-a exit,never -F arch=b64 -S all -F exe=/mnt/host_root/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S all -F exe=/opt/app/oracle/product/12.2.0/bin/oracle
+-a exit,never -F arch=b64 -S all -F exe=/opt/arcsight/current/arcsight/bin/safeAppend
+-a exit,never -F arch=b64 -S all -F exe=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b64 -S all -F exe=/opt/bmc/Patrol3/unix/Linux-2-6-x86-64-nptl/bin/statvfs
+-a exit,never -F arch=b64 -S all -F exe=/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S all -F exe=/opt/dynatrace/oneagent/agent/lib64/oneagentos
+-a exit,never -F arch=b64 -S all -F exe=/opt/microsoft/scx/bin/scxlogfilereader
+-a exit,never -F arch=b64 -S all -F exe=/opt/omi/bin/omiserver
+-a exit,never -F arch=b64 -S all -F exe=/opt/opendj/lib/jdk1.8.0_152/jre/bin/java
+-a exit,never -F arch=b64 -S all -F exe=/opt/puppetlabs/puppet/bin/augparse
+-a exit,never -F arch=b64 -S all -F exe=/opt/puppetlabs/puppet/bin/facter
+-a exit,never -F arch=b64 -S all -F exe=/opt/puppetlabs/puppet/bin/ruby
+-a exit,never -F arch=b64 -S all -F exe=/opt/puppetlabs/puppet/lib/virt-what/virt-what-cpuid-helper
+-a exit,never -F arch=b64 -S all -F exe=/opt/snaplogic/pkgs/jre1.8.0_162/bin/java
+-a exit,never -F arch=b64 -S all -F exe=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b64 -S all -F exe=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b64 -S all -F exe=/opt/support/bmc/patrol/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b64 -S all -F exe=/sbin/xtables-multi	
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/df
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/dirname
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/du
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/gawk
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/hostname
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/ionice
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/nice
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/sed
+-a exit,never -F arch=b64 -S all -F exe=/usr/lib64/ld-2.17.so
+-a exit,never -F arch=b64 -S all -F exe=/usr/bin/docker-runc
+-a exit,never -F arch=b64 -S all -F exe=/usr/hdp/2.6.1.0-129/hadoop-yarn/bin/container-executor
+-a exit,never -F arch=b64 -S all -F exe=/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent
+-a exit,never -F arch=b64 -S all -F exe=/usr/sbin/unix_chkpwd
+-a exit,never -F arch=b64 -S all -F path=/lib64/ld-linux-x86-64.so.2
+-a exit,never -F arch=b64 -S all -F path=/usr/hdp/current/hadoop-yarn-nodemanager/bin/container-executor
+-a exit,never -F arch=b64 -S all -F path=/usr/libexec/grepconf.sh
+-a exit,never -F arch=b64 -S all -F path=/mnt/host_root/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S all -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/listguests64
+-a exit,never -F arch=b64 -S all -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b64 -S all -F path=/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S all -F path=/opt/dynatrace/oneagent/agent/lib64/oneagentos
+-a exit,never -F arch=b64 -S all -F path=/opt/SolarWinds/Agent/bin/Plugins/Discovery/SolarWinds.Agent.Discovery.Plugin
+-a exit,never -F arch=b64 -S all -F path=/opt/SolarWinds/Agent/bin/Plugins/JobEngine/SolarWinds.Agent.JobEngine.Plugin
+-a exit,never -F arch=b64 -S all -F path=/opt/SolarWinds/Agent/bin/swiagent
+-a exit,never -F arch=b64 -S all -F path=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b64 -S all -F path=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b64 -S all -F path=/opt/WCG/bin/content_cop
+-a exit,never -F arch=b64 -S all -F path=/opt/WCG/bin/content_line
+-a exit,never -F arch=b64 -S all -F path=/opt/WCG/bin/FeedbackAgent
+-a exit,never -F arch=b64 -S all -F path=/opt/WCG/bin/WTGApp
+-a exit,never -F arch=b64 -S all -F path=/opt/WCG/ui/mrtg/rateup
+-a exit,never -F arch=b64 -S all -F path=/opt/websense/PolicyEngine/FPRUtils
+-a exit,never -F arch=b64 -S all -F path=/opt/websense/PolicyEngine/FqdnTool
+-a exit,never -F arch=b64 -S all -F path=/opt/websense/PolicyEngine/mgmtdClient
+-a exit,never -F arch=b64 -S all -F path=/opt/websense/PolicyEngine/PolicyEngineClient
+-a exit,never -F arch=b64 -S all -F path=/opt/websense/Python2.5/bin/python2.5
+-a exit,never -F arch=b64 -S all -F path=/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent
+-a exit,never -F arch=b64 -S all -F path=/usr/sbin/sendmail.postfix
+-a exit,never -F arch=b64 -S clone -F exe=/usr/bin/bash
+-a exit,never -F arch=b64 -S clone -F exe=/usr/bin/docker
+-a exit,never -F arch=b64 -S clone -F exe=/usr/bin/docker-runc
+-a exit,never -F arch=b64 -S clone -F exe=/usr/bin/dockerd
+-a exit,never -F arch=b64 -S clone -F exe=/usr/bin/dockerd-ce
+-a exit,never -F arch=b64 -S clone -F exe=/usr/bin/dockerd-current
+-a exit,never -F arch=b64 -S clone -F exe=/usr/lib/te-chromium/chrome-sandbox
+-a exit,never -F arch=b64 -S clone -F exe=/usr/libexec/flatpak-bwrap
+-a exit,never -F arch=b64 -S connect -F exe=/opt/jenkins/tools/chromedriver
+-a exit,never -F arch=b64 -S connect -F exe=/opt/snaplogic/pkgs/jre1.8.0_162/bin/java
+-a exit,never -F arch=b64 -S connect -F exe=/usr/bin/su
+-a exit,never -F arch=b64 -S connect -F exe=/usr/bin/sudo
+-a exit,never -F arch=b64 -S connect -F exe=/usr/sbin/haproxy
+-a exit,never -F arch=b64 -S execve -F exe=/mnt/host_root/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S execve -F exe=/opt/app/oracle/product/12.2.0/bin/oracle
+-a exit,never -F arch=b64 -S execve -F exe=/opt/arcsight/current/arcsight/bin/safeAppend
+-a exit,never -F arch=b64 -S execve -F exe=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b64 -S execve -F exe=/opt/bmc/Patrol3/unix/Linux-2-6-x86-64-nptl/bin/statvfs
+-a exit,never -F arch=b64 -S execve -F exe=/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S execve -F exe=/opt/dynatrace/oneagent/agent/lib64/oneagentos
+-a exit,never -F arch=b64 -S execve -F exe=/opt/jenkins/tools/chromedriver
+-a exit,never -F arch=b64 -S execve -F exe=/opt/microsoft/scx/bin/scxlogfilereader
+-a exit,never -F arch=b64 -S execve -F exe=/opt/omi/bin/omiserver
+-a exit,never -F arch=b64 -S execve -F exe=/opt/puppetlabs/puppet/bin/augparse
+-a exit,never -F arch=b64 -S execve -F exe=/opt/puppetlabs/puppet/bin/facter
+-a exit,never -F arch=b64 -S execve -F exe=/opt/puppetlabs/puppet/bin/ruby
+-a exit,never -F arch=b64 -S execve -F exe=/opt/puppetlabs/puppet/lib/virt-what/virt-what-cpuid-helper
+-a exit,never -F arch=b64 -S execve -F exe=/opt/snaplogic/pkgs/jre1.8.0_162/bin/java
+-a exit,never -F arch=b64 -S execve -F exe=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b64 -S execve -F exe=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b64 -S execve -F exe=/opt/support/bmc/patrol/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b64 -S execve -F exe=/sbin/xtables-multi	
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/df
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/dirname
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/du
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/gawk
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/ionice
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/kubelet
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/nice
+-a exit,never -F arch=b64 -S execve -F exe=/usr/bin/sed
+-a exit,never -F arch=b64 -S execve -F exe=/usr/hdp/2.6.1.0-129/hadoop-yarn/bin/container-executor
+-a exit,never -F arch=b64 -S execve -F exe=/usr/hdp/2.6.1.0-129/hadoop-yarn/bin/container-executor
+-a exit,never -F arch=b64 -S execve -F exe=/usr/lib64/ld-2.17.so
+-a exit,never -F arch=b64 -S execve -F exe=/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent
+-a exit,never -F arch=b64 -S execve -F exe=/usr/sbin/haproxy
+-a exit,never -F arch=b64 -S execve -F exe=/usr/sbin/unix_chkpwd
+-a exit,never -F arch=b64 -S execve -F path=/lib64/ld-linux-x86-64.so.2
+-a exit,never -F arch=b64 -S execve -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/listguests64
+-a exit,never -F arch=b64 -S execve -F path=/opt/bmc/Patrol3/Linux-2-6-x86-64-nptl/bin/PatrolAgent
+-a exit,never -F arch=b64 -S execve -F path=/opt/SolarWinds/Agent/bin/Plugins/Discovery/SolarWinds.Agent.Discovery.Plugin
+-a exit,never -F arch=b64 -S execve -F path=/opt/SolarWinds/Agent/bin/Plugins/JobEngine/SolarWinds.Agent.JobEngine.Plugin
+-a exit,never -F arch=b64 -S execve -F path=/opt/SolarWinds/Agent/bin/swiagent
+-a exit,never -F arch=b64 -S execve -F path=/opt/splunkforwarder/bin/splunk
+-a exit,never -F arch=b64 -S execve -F path=/opt/splunkforwarder/bin/splunkd
+-a exit,never -F arch=b64 -S execve -F path=/opt/WCG/bin/content_cop
+-a exit,never -F arch=b64 -S execve -F path=/opt/WCG/bin/content_line
+-a exit,never -F arch=b64 -S execve -F path=/opt/WCG/bin/FeedbackAgent
+-a exit,never -F arch=b64 -S execve -F path=/opt/WCG/bin/WTGApp
+-a exit,never -F arch=b64 -S execve -F path=/opt/WCG/ui/mrtg/rateup
+-a exit,never -F arch=b64 -S execve -F path=/opt/websense/PolicyEngine/FPRUtils
+-a exit,never -F arch=b64 -S execve -F path=/opt/websense/PolicyEngine/FqdnTool
+-a exit,never -F arch=b64 -S execve -F path=/opt/websense/PolicyEngine/mgmtdClient
+-a exit,never -F arch=b64 -S execve -F path=/opt/websense/PolicyEngine/PolicyEngineClient
+-a exit,never -F arch=b64 -S execve -F path=/opt/websense/Python2.5/bin/python2.5
+-a exit,never -F arch=b64 -S execve -F path=/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent
+-a exit,never -F arch=b64 -S execve -F path=/usr/sbin/sendmail.postfix
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/bin/login
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/bin/sudo
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/sbin/crond
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/bin/su
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/sbin/sshd
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/sbin/crond
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/libexec/goa-identity-service
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/bin/ssh
+-a exit,never -F arch=b64 -S keyctl -F exe=/usr/sbin/runuser
+-a exit,never -F arch=b64 -S openat -F exe=/usr/bin/kubelet
+-a exit,never -F arch=b64 -S ptrace -F exe=/mnt/host_root/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S ptrace -F exe=/opt/dynatrace/oneagent/agent/lib64/oneagenthelper
+-a exit,never -F arch=b64 -S ptrace -F exe=/opt/dynatrace/oneagent/agent/lib64/oneagentos
+-a exit,never -F arch=b64 -S ptrace -F exe=/usr/libexec/abrt-hook-ccpp
+-a exit,never -F arch=b64 -S sendto -F exe=/opt/cni/bin/bridge
+-a exit,never -F arch=b64 -S sendto -F exe=/usr/bin/docker
+-a exit,never -F arch=b64 -S sendto -F exe=/usr/bin/dockerd
+-a exit,never -F arch=b64 -S sendto -F exe=/usr/bin/dockerd-ce
+-a exit,never -F arch=b64 -S sendto -F exe=/usr/bin/dockerd-current
+-a exit,never -F arch=b64 -S sendto -F exe=/usr/local/bin/dockerd
+-a never,exit -F arch=b64 -S execve -F exe=/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent
+-a never,exit -F arch=b64 -S connect -F exe=/usr/jdk64/jdk1.8.0_112/bin/java
+-a never,exit -F arch=b64 -S connect -F exe=/usr/sbin/glusterfsd
+-a never,exit -F arch=b64 -S connect -F exe=/usr/lib/bigtop-utils/jsvc
+-a never,exit -F arch=b64 -S execve -F exe=/usr/jdk64/jdk1.8.0_112/bin/java
+-a never,exit -F dir=/usr/local/qualys
+-a never,exit -F dir=/usr/lib/ambari-server/
+-a never,exit -F dir=/hana/shared/
+-a never,exit -F dir=/data001/sap
+-a never,exit -F dir=/sas/sasWorkProd01
+-a never,exit -F dir=/mnt/host_root
+-a never,exit -F dir=/opt/dynatrace
+-a never,exit -F dir=/opt/websense
+-a never,exit -F dir=/opt/aspera/
+-a never,exit -F dir=/opt/snaplogic/
+-a never,exit -F dir=/opt/SolarWinds
+-a never,exit -F dir=/opt/WCG
+-a never,exit -F dir=/opt/bmc
+-a never,exit -F dir=/opt/cni
+-a never,exit -F dir=/opt/managesoft
+-a never,exit -F dir=/opt/microsoft
+-a never,exit -F dir=/opt/omi
+-a never,exit -F dir=/opt/puppetlabs
+-a never,exit -F dir=/opt/rh
+-a never,exit -F dir=/opt/splunkforwarder
+-a never,exit -F dir=/opt/stagesplunk
+-a never,exit -F dir=/var/lib/net-snmp/mib_indexes
+-a never,exit -F dir=/opt/SecureSpan
+-a never,exit -F path=/lib64/ld-linux-x86-64.so.2
+
+
+-a always,exclude -F msgtype=AVC
+-a always,exclude -F msgtype=CWD
+-a always,exclude -F msgtype=EOE
+-a exclude,always -F msgtype=USER_ACCT
+-a exclude,always -F msgtype=CRED_ACQ
+-a exclude,always -F msgtype=USER_START
+-a exclude,always -F msgtype=CRED_DISP
+-a exclude,always -F msgtype=USER_END
+-a exclude,always -F msgtype=MAC_IPSEC_EVENT
+-a exclude,always -F msgtype=NETFILTER_CFG
+-a always,exclude -F msgtype=CRYPTO_KEY_USER
+-a always,exclude -F msgtype=LOGIN
+-a always,exclude -F msgtype=CONFIG_CHANGE
+-a exclude,always -F msgtype=CRED_REFR
+-a exclude,always -F msgtype=USER_AUTH
+-a always,exclude -F msgtype=USER_CMD -F auid=4294967295
+-a always,exclude -F msgtype=USER_CHAUTHTOK -F auid=4294967295
+-a always,exclude -F msgtype=SERVICE_START -F auid=4294967295
+-a always,exclude -F msgtype=SERVICE_STOP -F auid=4294967295
+-a exit,never -S all -F path=/opt/splunkforwarder/bin/splunkd
+-a never,user -F subj_type=crond_t
+-a exit,never -F arch=b32 -S fork -F success=0 -F path=/usr/lib/vmware-tools -F subj_type=initrc_t -F exit=-2
+-a exit,never -F arch=b64 -S fork -F success=0 -F path=/usr/lib/vmware-tools -F subj_type=initrc_t -F exit=-2
+-a exit,never -F arch=b32 -F dir=/dev/shm
+-a exit,never -F arch=b64 -F dir=/dev/shm
+-a exit,never -F arch=b32 -F dir=/var/lock/lvm
+-a exit,never -F arch=b64 -F dir=/var/lock/lvm
+-w /usr/lib/systemd/ -p wa
+-w /etc/logrotate.d/syslog -p wa
+-w /lib/security/ -p wa
+-w /etc/sysctl.conf -p wa
+-w /etc/NetworkManager/ -p wa
+-w /etc/logrotate.d/ -p wa
+-w /sbin/logrotate -p x
+-w /usr/sbin/logrotate -p x
+-a always,exit -F perm=x -F auid!=-1 -F path=/sbin/insmod
+-a always,exit -F perm=x -F auid!=-1 -F path=/sbin/modprobe
+-a always,exit -F perm=x -F auid!=-1 -F path=/sbin/rmmod
+-a always,exit -F arch=b64 -S finit_module -S init_module -S delete_module -F auid!=-1
+-a always,exit -F arch=b32 -S finit_module -S init_module -S delete_module -F auid!=-1
+-w /etc/modprobe.conf -p wa
+-w /usr/sbin/stunnel -p x
+-w /etc/cron.allow -p wa
+-w /etc/cron.deny -p wa
+-w /etc/cron.d/ -p wa
+-w /etc/cron.daily/ -p wa
+-w /etc/cron.hourly/ -p wa
+-w /etc/cron.monthly/ -p wa
+-w /etc/cron.weekly/ -p wa
+-w /etc/crontab -p wa
+-w /var/spool/cron/crontabs/
+-w /etc/inittab -p wa
+-w /etc/init.d/ -p wa
+-w /etc/init/ -p wa
+-w /etc/at.allow -p wa
+-w /etc/at.deny -p wa
+-w /var/spool/at/ -p wa
+-w /etc/anacrontab -p wa
+-w /etc/sudoers -p wa
+-w /usr/bin/passwd -p x
+-w /usr/bin/python -p x
+-w /bin/python -p x
+-w /usr/sbin/groupadd -p x
+-w /usr/sbin/groupmod -p x
+-w /usr/sbin/addgroup -p x
+-w /usr/sbin/useradd -p x
+-w /usr/sbin/usermod -p x
+-w /usr/sbin/adduser -p x
+-a exit,always -F arch=b64 -F euid=0 -S execve
+-a exit,always -F arch=b32 -F euid=0 -S execve
+-a always,exit -F path=/usr/sbin/userdel -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/bin/ping -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/bin/umount -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/bin/mount -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/bin/su -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/bin/chgrp -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/bin/ping6 -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/sbin/pam_timestamp_check -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/sbin/unix_chkpwd -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/sbin/pwck -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/suexec -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/usermod -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/newusers -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/groupdel -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/usernetctl -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/ccreds_validate -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/sbin/userhelper -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/Xorg -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/rlogin -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/sudoedit -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/at -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/rsh -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/gpasswd -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/kgrantpty -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/crontab -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/bin/crontab -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/sudo -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/staprun -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/rcp -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/passwd -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/chsh -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/chfn -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/setfacl -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/chacl -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/chcon -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/newgrp -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/newrole -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F path=/usr/bin/kpac_dhcp_helper -F perm=x -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S mount -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S mount -F auid>=500 -F auid!=4294967295
+#-a always,exit -F arch=b32 -S 56
+# -a always,exit -F arch=b64 -S 56
+#- a always,exit -F arch=b32 -S SYS_clone
+#-a always,exit -F arch=b64 -S SYS_clone
+#-a always,exit -F arch=b32 -S clone
+#-a always,exit -F arch=b64 -S clone
+#-a always,exit -F arch=b32 -S keyctl
+#-a always,exit -F arch=b64 -S keyctl
+-w /var/run/utmp -p wa
+-w /var/log/wtmp -p wa
+-w /var/log/btmp -p wa
+-w /var/log/faillog -p wa
+-w /var/log/lastlog -p wa
+-w /var/log/tallylog -p wa
+-w /etc/pam.d/ -p wa
+-w /etc/ld.so.preload -p wa
+-w /etc/ld.so.conf -p wa
+-w /etc/ld.so.conf.d -p wa
+-w /etc/security/limits.conf -p wa
+-w /etc/security/pam_env.conf -p wa
+-w /etc/security/namespace.conf -p wa
+-w /etc/security/namespace.init -p wa
+-w /etc/pam.d/common-password -p wa
+-w /etc/ssh/sshd_config
+-a exit,always -F arch=b64 -S connect -F a2!=110 -F auid!=4294967295 -F auid>=1000
+-a exit,always -F arch=b64 -S bind -F a2!=110 -F auid!=4294967295 -F auid>=1000
+-a exit,always -F arch=b64 -S listen -F a2!=110 -F auid!=4294967295 -F auid>=1000
+-a exit,always -F arch=b64 -S setsockopt -F a2!=110 -F auid!=4294967295 -F auid>=1000
+-a exit,always -F arch=b32 -S socketcall -F a0=3
+-w /bin/su -p x
+-w /usr/bin/sudo -p x
+-a always,exit -F dir=/home -F uid=0 -F auid>=1000 -F auid!=4294967295 -C auid!=obj_uid
+-a always,exit -F arch=b32 -S chmod -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S chown -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S fchmod -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S fchmodat -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S fchown -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S fchownat -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S fremovexattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S fsetxattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S lchown -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S lremovexattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S lsetxattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S removexattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b32 -S setxattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S chmod  -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S chown -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S fchmod -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S fchmodat -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S fchown -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S fchownat -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S fremovexattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S fsetxattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S lchown -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S lremovexattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S lsetxattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S removexattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S setxattr -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -C auid!=uid -S execve
+-a always,exit -F arch=b32 -C auid!=uid -S execve
+-a always,exit -F arch=b64 -S setuid -S setgid -S setreuid -S setregid
+-a always,exit -F arch=b32 -S setuid -S setgid -S setreuid -S setregid
+-a always,exit -F arch=b64 -S setuid -S setgid -S setreuid -S setregid -F exit=EPERM
+-a always,exit -F arch=b32 -S setuid -S setgid -S setreuid -S setregid -F exit=EPERM
+-w /usr/bin/ -p w
+-w /etc/group -p wa
+-w /etc/passwd -p wa
+-w /etc/gshadow
+-w /etc/shadow
+-w /etc/security/opasswd
+-w /usr/sbin/nologin
+-w /sbin/nologin
+-w /usr/bin/whoami -p x
+-w /bin/ldapsearch -p x
+-w /usr/sbin/visudo -p x
+-w /usr/bin/vim -p x
+-w /usr/bin/nano -p x
+-w /etc/hostname -p r
+-w /sbin/iptables -p x
+-w /sbin/ifconfig -p x
+-w /etc/login.defs -p wa
+-w /etc/resolv.conf
+-w /etc/hosts.allow
+-w /etc/hosts.deny
+-w /etc/securetty -p wa
+-w /usr/sbin/tcpdump -p x
+-w /sbin/tcpdump -p x
+-w /usr/sbin/traceroute -p x
+-w /usr/bin/wireshark -p x
+-w /usr/bin/pkill -p x
+-w /usr/bin/rawshark -p x
+-w /usr/bin/grep -p x
+-w /usr/bin/egrep -p x
+-w /usr/bin/ps -p x
+-w /usr/bin/cp -p x
+-w /usr/bin/dd -p x
+-w /usr/bin/wget -p x
+-w /usr/bin/curl -p x
+-w /usr/bin/base64 -p x
+-w /bin/cat -p x
+-w /bin/nc -p x
+-w /bin/netcat -p x
+-w /usr/bin/ncat -p x
+-w /usr/bin/ssh -p x
+-w /usr/bin/socat -p x
+-w /usr/bin/rdesktop -p x
+-w /usr/bin/nmap -p x
+-w /bin/nmap -p x
+-w /usr/bin/rpm -p x
+-w /usr/bin/yum -p x
+-w /sbin/yast -p x
+-w /sbin/yast2 -p x
+-w /bin/rpm -p x
+-w /usr/bin/zypper
+-w /usr/bin/dpkg -p x
+-w /usr/bin/apt-add-repository -p x
+-w /usr/bin/apt-get -p x
+-w /usr/bin/aptitude -p x
+-a always,exit -F arch=b32 -S ptrace
+-a always,exit -F arch=b64 -S ptrace
+-a always,exit -F arch=b32 -S ptrace -F a0=0x4
+-a always,exit -F arch=b64 -S ptrace -F a0=0x4
+-a always,exit -F arch=b32 -S ptrace -F a0=0x5
+-a always,exit -F arch=b64 -S ptrace -F a0=0x5
+-a always,exit -F arch=b32 -S ptrace -F a0=0x6
+-a always,exit -F arch=b64 -S ptrace -F a0=0x6
+-a always,exit -F arch=b32 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid=0
+-a always,exit -F arch=b32 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295
+-a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid=0
+-a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295
+-w /etc/profile.d/ -p wa
+-w /etc/profile -p wa
+-w /etc/shells -p wa
+-w /etc/bashrc -p wa
+-w /etc/csh.cshrc -p wa
+-w /etc/csh.login -p wa
+-w /usr/bin/ftp -p x
+-w /tmp/ -p wx
+-w /home/ -p wxa
+-w /root/ -p wxa
+#-w /proc -p wa
